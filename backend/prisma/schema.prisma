@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  nom      String
+  tartib   Int       @default(0)
+  faol     Boolean   @default(true)
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  categoryId  Int
+  category    Category    @relation(fields: [categoryId], references: [id])
+  nom         String
+  tavsif      String?
+  narx        Float
+  rasmUrl     String?
+  birlik      String      @default("porsiya")
+  tur         String      @default("whole")
+  qadam       Float       @default(1)
+  qoldiq      Float?
+  faol        Boolean     @default(true)
+  orderItems  OrderItem[]
+
+  @@map("products")
+}
+
+model RestaurantTable {
+  id       Int       @id @default(autoincrement())
+  raqam    Int       @unique
+  nom      String?
+  sigim    Int       @default(4)
+  qrKodUrl String?
+  orders   Order[]
+  bookings Booking[]
+
+  @@map("tables")
+}
+
+model Order {
+  id              Int              @id @default(autoincrement())
+  raqam           String           @unique
+  holat           String           @default("yangi")
+  tur             String           @default("stol")
+  tableId         Int?
+  table           RestaurantTable? @relation(fields: [tableId], references: [id])
+  customerId      Int?
+  customer        Customer?        @relation(fields: [customerId], references: [id])
+  mijozIsmi       String?
+  mijozTelefon    String?
+  manzil          String?
+  izoh            String?
+  jamiSumma       Float
+  tolovHolati     String           @default("kutilmoqda")
+  tolovTuri       String?
+  tolanganVaqt    DateTime?
+  ballarBerildi   Int              @default(0)
+  yaratilganVaqt  DateTime         @default(now())
+  yangilanganVaqt DateTime         @updatedAt
+  items           OrderItem[]
+
+  @@map("orders")
+}
+
+model Customer {
+  id              Int      @id @default(autoincrement())
+  ism             String
+  telefon         String   @unique
+  email           String?  @unique
+  emailTasdiqlandi Boolean @default(false)
+  parolHash       String
+  ballar          Int      @default(0)
+  yaratilganVaqt  DateTime @default(now())
+  orders          Order[]
+
+  @@map("customers")
+}
+
+model OrderItem {
+  id           Int     @id @default(autoincrement())
+  orderId      Int
+  order        Order   @relation(fields: [orderId], references: [id])
+  productId    Int
+  product      Product @relation(fields: [productId], references: [id])
+  mahsulotNomi String
+  miqdori      Float
+  birlik       String
+  narx         Float
+
+  @@map("order_items")
+}
+
+model Booking {
+  id             Int              @id @default(autoincrement())
+  tableId        Int?
+  table          RestaurantTable? @relation(fields: [tableId], references: [id])
+  mijozIsmi      String
+  telefon        String
+  sana           DateTime
+  vaqt           String
+  kishiSoni      Int
+  holat          String           @default("yangi")
+  izoh           String?
+  yaratilganVaqt DateTime         @default(now())
+
+  @@map("bookings")
+}
+
+model AdminUser {
+  id        Int    @id @default(autoincrement())
+  login     String @unique
+  parolHash String
+  rol       String @default("kassir")
+
+  @@map("admin_users")
+}

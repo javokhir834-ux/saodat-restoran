@@ -1,0 +1,18 @@
+# Bog'liqliklar
+**/node_modules
+
+# Build natijalari
+**/dist
+backend/public
+
+# Maxfiy sozlamalar — hech qachon git'ga tushmasin
+**/.env
+**/.env.local
+
+# Yuklangan rasmlar (foydalanuvchi fayllari)
+backend/src/uploads/*
+!backend/src/uploads/.gitkeep
+
+# Loglar va vaqtinchalik
+*.log
+.DS_Store

@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --green: #0F4D3C;
+  --green-dark: #0A3A2D;
+  --gold: #E8C97A;
+  --cream: #FAF7F0;
+  --line: #E0D8C8;
+  --ink: #2C2C2A;
+  --muted: #888780;
+  --red: #A32D2D;
+  --green-soft: #E1F5EE;
+  --red-soft: #FCEBEB;
+  --amber-soft: #FAEEDA;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', -apple-system, Roboto, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { min-height: 100vh; }
+
+/* Gorizontal scroll panellarda scrollbar ko'rinmasin */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Forma elementlari fokusda yashil halqa */
+input:focus, select:focus, textarea:focus {
+  border-color: var(--green) !important;
+  box-shadow: 0 0 0 3px rgba(15, 77, 60, 0.10);
+}
+
+/* Tugmalar bosilganda yengil reaksiya */
+button { transition: opacity 0.15s ease, transform 0.1s ease, background 0.15s ease; }
+button:active:not(:disabled) { transform: scale(0.97); }
+
+/* Sahifa kontenti yumshoq paydo bo'lishi */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.3s ease both; }
+
+/* Modal overlay paydo bo'lishi */
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.slide-up { animation: slideUp 0.25s ease both; }
+
+/* Chek chop etish — faqat chek qog'ozi ko'rinadi */
+@media print {
+  body * { visibility: hidden !important; }
+  .chek-chop, .chek-chop * { visibility: visible !important; }
+  .chek-chop {
+    position: absolute; left: 0; top: 0; width: 100%;
+    box-shadow: none !important; border: none !important; border-radius: 0 !important;
+  }
+  .chek-yashir { display: none !important; }
+}
