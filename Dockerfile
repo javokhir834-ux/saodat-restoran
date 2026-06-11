@@ -25,5 +25,5 @@ COPY --from=frontend /app/frontend/dist ./public
 ENV NODE_ENV=production
 EXPOSE 5000
 
-# Avval bazaga migratsiyalarni qo'llaymiz, keyin serverni ishga tushiramiz
-CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
+# Migratsiya → baza bo'sh bo'lsa avtomatik to'ldirish → server
+CMD ["sh", "-c", "npx prisma migrate deploy && node prisma/seed-if-empty.js && node server.js"]
