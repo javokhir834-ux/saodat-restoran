@@ -21,6 +21,9 @@ if (sozlangan) {
   transport = nodemailer.createTransport({
     service: 'gmail',
     auth: { user: USER, pass: PASS },
+    connectionTimeout: 10000,   // 10s — ulanmasа qotib qolmaydi
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
   });
 }
 
