@@ -1,0 +1,15 @@
+{
+  "name": "Saodat Restoran",
+  "short_name": "Saodat",
+  "description": "Saodat restoran — onlayn buyurtma, bron va sodiqlik ballari",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F4D3C",
+  "theme_color": "#0F4D3C",
+  "lang": "uz",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
